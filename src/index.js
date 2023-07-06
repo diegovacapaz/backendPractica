@@ -31,10 +31,4 @@ app.use(express.urlencoded({extended: true})); //Permite recibir parametros en l
 app.use(morgan("dev")); //Brinda detalles en la terminal
 app.use(cors()); //Permite recibir peticiones remotas
 
-//Primer endpoint o ruta de prueba
-app.get("/test", (request, response)=>{
-    console.log("Objeto req: "+ request);
-    // console.log("Entro en GET TEST");
-    // response.send("Aqui va la respuesta");
-    response.status(200).json({message: "Aqui va la respuesta"});
-});
+app.use("/api", require("./routes/routes.js"));
