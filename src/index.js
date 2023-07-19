@@ -31,4 +31,5 @@ app.use(express.urlencoded({extended: true})); //Permite recibir parametros en l
 app.use(morgan("dev")); //Brinda detalles en la terminal
 app.use(cors()); //Permite recibir peticiones remotas
 
-app.use("/api", require("./routes/routes.js"));
+//Haciendo el endpoint /api e invocando al routes.js
+app.use("/api", require("./routes/routes.js"));//llamo a routes
