@@ -2,10 +2,12 @@ import express from "express";
 import 'dotenv/config'; //Para acceder a las variables de entorno
 import cors from 'cors';
 import morgan from 'morgan';
+import connectDb from "./database/db";
+// const connectDb = require("./database/db");
 
 //PODES USAR NODEMON PONIENDO EL COMANDO DEV EN PACKAGEJSON, PARA QUE LOS CAMBIOS SE ACTUALIZEN SOLOS
 
-console.log("Hellor World Backend");
+console.log("Hellow World Backend");
 
 //Creamos una instancia de express
 const app = express();
@@ -14,12 +16,26 @@ const app = express();
 app.set("port", process.env.PORT || 5050);
 
 //Inicializamos nuestro backend
-app.listen(app.get("port"), ()=>{
-    console.log("Backend listening on port " + app.get("port"));
-}).on("error",(e)=>{
-    console.log("Error: " + e);
-    process.exit(1);
-})
+
+const initApp = async () => {
+    try{
+        await connectDb();
+        
+        app.listen(app.get("port"), ()=>{
+            console.log("Backend listening on port " + app.get("port"));
+        }).on("error",(e)=>{
+            console.log("Error: " + e);
+            process.exit(1);
+        });    
+        
+    }
+    catch(error) {
+        console.log(error);
+        process.exit(1);
+    }
+}
+
+initApp();
 
 //Middlewares: configuraciones extras del backend antes de qie se ejecuten las rutas
 
